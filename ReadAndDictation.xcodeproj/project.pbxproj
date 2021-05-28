@@ -10,9 +10,13 @@
 		0992CACE265C9FC9008F2AFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CACD265C9FC9008F2AFF /* AppDelegate.swift */; };
 		0992CAD0265C9FC9008F2AFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CACF265C9FC9008F2AFF /* SceneDelegate.swift */; };
 		0992CAD2265C9FC9008F2AFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAD1265C9FC9008F2AFF /* ViewController.swift */; };
-		0992CAD5265C9FC9008F2AFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0992CAD3265C9FC9008F2AFF /* Main.storyboard */; };
 		0992CAD7265C9FCB008F2AFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0992CAD6265C9FCB008F2AFF /* Assets.xcassets */; };
 		0992CADA265C9FCB008F2AFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0992CAD8265C9FCB008F2AFF /* LaunchScreen.storyboard */; };
+		0992CAE3265CA2A8008F2AFF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAE2265CA2A8008F2AFF /* MainTabBarController.swift */; };
+		0992CAE5265CA37F008F2AFF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAE4265CA37F008F2AFF /* HomeViewController.swift */; };
+		0992CAE7265CA393008F2AFF /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAE6265CA393008F2AFF /* MyPageViewController.swift */; };
+		0992CAE9265CA3AA008F2AFF /* ExtensionToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */; };
+		0992CAEC265F9E0B008F2AFF /* UnderLineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAEB265F9E0B008F2AFF /* UnderLineExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +24,14 @@
 		0992CACD265C9FC9008F2AFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0992CACF265C9FC9008F2AFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0992CAD1265C9FC9008F2AFF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0992CAD4265C9FC9008F2AFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0992CAD6265C9FCB008F2AFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0992CAD9265C9FCB008F2AFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0992CADB265C9FCB008F2AFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0992CAE2265CA2A8008F2AFF /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		0992CAE4265CA37F008F2AFF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0992CAE6265CA393008F2AFF /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionToolViewController.swift; sourceTree = "<group>"; };
+		0992CAEB265F9E0B008F2AFF /* UnderLineExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,35 @@
 		0992CACC265C9FC9008F2AFF /* ReadAndDictation */ = {
 			isa = PBXGroup;
 			children = (
+				0992CAEA265F9DE2008F2AFF /* Helper */,
+				0992CAE1265CA27B008F2AFF /* TabBarController */,
 				0992CACD265C9FC9008F2AFF /* AppDelegate.swift */,
 				0992CACF265C9FC9008F2AFF /* SceneDelegate.swift */,
 				0992CAD1265C9FC9008F2AFF /* ViewController.swift */,
-				0992CAD3265C9FC9008F2AFF /* Main.storyboard */,
 				0992CAD6265C9FCB008F2AFF /* Assets.xcassets */,
 				0992CAD8265C9FCB008F2AFF /* LaunchScreen.storyboard */,
 				0992CADB265C9FCB008F2AFF /* Info.plist */,
 			);
 			path = ReadAndDictation;
+			sourceTree = "<group>";
+		};
+		0992CAE1265CA27B008F2AFF /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CAE2265CA2A8008F2AFF /* MainTabBarController.swift */,
+				0992CAE4265CA37F008F2AFF /* HomeViewController.swift */,
+				0992CAE6265CA393008F2AFF /* MyPageViewController.swift */,
+				0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		0992CAEA265F9DE2008F2AFF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0992CAEB265F9E0B008F2AFF /* UnderLineExtension.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +154,6 @@
 			files = (
 				0992CADA265C9FCB008F2AFF /* LaunchScreen.storyboard in Resources */,
 				0992CAD7265C9FCB008F2AFF /* Assets.xcassets in Resources */,
-				0992CAD5265C9FC9008F2AFF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +164,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0992CAE5265CA37F008F2AFF /* HomeViewController.swift in Sources */,
+				0992CAE7265CA393008F2AFF /* MyPageViewController.swift in Sources */,
 				0992CAD2265C9FC9008F2AFF /* ViewController.swift in Sources */,
+				0992CAE9265CA3AA008F2AFF /* ExtensionToolViewController.swift in Sources */,
 				0992CACE265C9FC9008F2AFF /* AppDelegate.swift in Sources */,
+				0992CAE3265CA2A8008F2AFF /* MainTabBarController.swift in Sources */,
+				0992CAEC265F9E0B008F2AFF /* UnderLineExtension.swift in Sources */,
 				0992CAD0265C9FC9008F2AFF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,14 +178,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0992CAD3265C9FC9008F2AFF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0992CAD4265C9FC9008F2AFF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0992CAD8265C9FCB008F2AFF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
