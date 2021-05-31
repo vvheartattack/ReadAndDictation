@@ -14,8 +14,13 @@ class MyPageViewController: UIViewController, UITableViewDelegate,UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = belowTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "hello,world"
+        
+        // Add arrow on the right side of cells
+        cell.accessoryType = .disclosureIndicator
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
     }
     
     private let belowTableView = UITableView()
@@ -174,8 +179,9 @@ class MyPageViewController: UIViewController, UITableViewDelegate,UITableViewDat
             belowTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             belowTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             belowTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            belowTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
-        
+        belowTableView.tableFooterView = UIView(frame: CGRect.zero)
         
     }
 
