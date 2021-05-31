@@ -64,13 +64,9 @@ class HomeViewController: UIViewController {
         leftImageView.translatesAutoresizingMaskIntoConstraints = false
         rightImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-//            leftImageView.leadingAnchor.constraint(equalTo: bookContentImageViewStack.leadingAnchor),
-//            leftImageView.trailingAnchor.constraint(equalTo: rightImageView.leadingAnchor),
             leftImageView.widthAnchor.constraint(equalTo: leftImageView.heightAnchor, multiplier: 167 / 120)
         ])
         NSLayoutConstraint.activate([
-//            rightImageView.trailingAnchor.constraint(equalTo: bookContentImageViewStack.trailingAnchor),
-//            rightImageView.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor),
             rightImageView.widthAnchor.constraint(equalTo: rightImageView.heightAnchor, multiplier: 167 / 120)
             
         ])
@@ -82,25 +78,20 @@ class HomeViewController: UIViewController {
         bookContentStack.alignment = .fill
         bookContentStack.distribution = .fill
         bookContentStack.addArrangedSubview(bookContentLabel)
-        bookContentLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bookContentLabel.leadingAnchor.constraint(equalTo: bookContentStack.leadingAnchor)
-        ])
+        bookContentLabel.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview()
+        }
         bookContentStack.addArrangedSubview(bookContentImageViewStack)
-        
-        bookContentStack.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(bookContentStack)
-        NSLayoutConstraint.activate([
-            bookContentStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            bookContentStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            bookContentStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-        ])
+        bookContentStack.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.view.snp.leading).offset(16)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-16)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(16)
+        }
         bookContentStack.spacing = 16
-        
-//        bookContentView.translatesAutoresizingMaskIntoConstraints = false
+    
         self.view.addSubview(bookContentStack)
         
-    
         // Set up leftImageView's Content
         let ChineseTextbookLabel = UILabel()
         ChineseTextbookLabel.text = "语文课本"
@@ -110,16 +101,18 @@ class HomeViewController: UIViewController {
         leftTextbookVersionLabel.text = "还没有选择教材"
         leftTextbookVersionLabel.textColor = .white
         leftTextbookVersionLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-        ChineseTextbookLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftTextbookVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+
         leftImageView.addSubview(ChineseTextbookLabel)
         leftImageView.addSubview(leftTextbookVersionLabel)
-        NSLayoutConstraint.activate([
-            ChineseTextbookLabel.leadingAnchor.constraint(equalTo: leftImageView.leadingAnchor, constant: 16),
-            ChineseTextbookLabel.topAnchor.constraint(equalTo: leftImageView.topAnchor,constant: 16),
-            leftTextbookVersionLabel.topAnchor.constraint(equalTo: ChineseTextbookLabel.bottomAnchor),
-            leftTextbookVersionLabel.leadingAnchor.constraint(equalTo: leftImageView.leadingAnchor, constant: 16),
-        ])
+        ChineseTextbookLabel.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(16)
+        }
+        leftTextbookVersionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(ChineseTextbookLabel.snp.bottom)
+            make.leading.equalToSuperview().offset(16)
+        }
+        
         let leftStartDictationLabel = UILabel()
         leftStartDictationLabel.text = "开始默写"
         leftStartDictationLabel.textColor = .white
@@ -128,18 +121,17 @@ class HomeViewController: UIViewController {
         leftStartDicationImageView.image = UIImage(named: "内容区／icon／32／前进")
         leftImageView.addSubview(leftStartDictationLabel)
         leftImageView.addSubview(leftStartDicationImageView)
-        leftStartDicationImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leftStartDicationImageView.trailingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: -16),
-            leftStartDicationImageView.bottomAnchor.constraint(equalTo: leftImageView.bottomAnchor, constant: -16),
-            leftStartDicationImageView.widthAnchor.constraint(equalTo: leftStartDicationImageView.heightAnchor),
-            leftStartDicationImageView.widthAnchor.constraint(equalToConstant: 16)
-        ])
-        leftStartDictationLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leftStartDictationLabel.trailingAnchor.constraint(equalTo: leftStartDicationImageView.leadingAnchor, constant: -4),
-            leftStartDictationLabel.bottomAnchor.constraint(equalTo: leftImageView.bottomAnchor, constant: -16)
-        ])
+
+        leftStartDicationImageView.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+            make.width.height.equalTo(16)
+        }
+        
+        leftStartDictationLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(leftStartDicationImageView.snp.leading).offset(-4)
+            make.bottom.equalToSuperview().offset(-16)
+        }
         
         // Set up rightImageView's Content
         let EnglishTextbookLabel = UILabel()
@@ -150,16 +142,19 @@ class HomeViewController: UIViewController {
         EnglishTextbookVersionLabel.text = "还没有选择教材"
         EnglishTextbookVersionLabel.textColor = .white
         EnglishTextbookVersionLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-        EnglishTextbookLabel.translatesAutoresizingMaskIntoConstraints = false
-        EnglishTextbookVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+
         rightImageView.addSubview(EnglishTextbookLabel)
         rightImageView.addSubview(EnglishTextbookVersionLabel)
-        NSLayoutConstraint.activate([
-            EnglishTextbookLabel.leadingAnchor.constraint(equalTo: rightImageView.leadingAnchor, constant: 16),
-            EnglishTextbookLabel.topAnchor.constraint(equalTo: rightImageView.topAnchor,constant: 16),
-            EnglishTextbookVersionLabel.topAnchor.constraint(equalTo: EnglishTextbookLabel.bottomAnchor),
-            EnglishTextbookVersionLabel.leadingAnchor.constraint(equalTo: rightImageView.leadingAnchor, constant: 16),
-        ])
+        
+        EnglishTextbookLabel.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(16)
+        }
+        EnglishTextbookVersionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(EnglishTextbookLabel.snp.bottom)
+            make.leading.equalToSuperview().offset(16)
+        }
+
         let rightStartDictationLabel = UILabel()
         rightStartDictationLabel.text = "开始默写"
         rightStartDictationLabel.textColor = .white
@@ -168,18 +163,17 @@ class HomeViewController: UIViewController {
         rightStartDicationImageView.image = UIImage(named: "内容区／icon／32／前进")
         rightImageView.addSubview(rightStartDictationLabel)
         rightImageView.addSubview(rightStartDicationImageView)
-        rightStartDicationImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            rightStartDicationImageView.trailingAnchor.constraint(equalTo: rightImageView.trailingAnchor, constant: -16),
-            rightStartDicationImageView.bottomAnchor.constraint(equalTo: rightImageView.bottomAnchor, constant: -16),
-            rightStartDicationImageView.widthAnchor.constraint(equalTo: leftStartDicationImageView.heightAnchor),
-            rightStartDicationImageView.widthAnchor.constraint(equalToConstant: 16)
-        ])
-        rightStartDictationLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            rightStartDictationLabel.trailingAnchor.constraint(equalTo: rightStartDicationImageView.leadingAnchor, constant: -4),
-            rightStartDictationLabel.bottomAnchor.constraint(equalTo: rightImageView.bottomAnchor, constant: -16)
-        ])
+
+        rightStartDicationImageView.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+            make.width.height.equalTo(16)
+        }
+
+        rightStartDictationLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(rightStartDicationImageView.snp.leading).offset(-4)
+            make.bottom.equalToSuperview().offset(-16)
+        }
     }
 
 }
