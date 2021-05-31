@@ -1,0 +1,6 @@
+framework module Pods_ReadAndDictation {
+  umbrella header "Pods-ReadAndDictation-umbrella.h"
+
+  export *
+  module * { export * }
+}
