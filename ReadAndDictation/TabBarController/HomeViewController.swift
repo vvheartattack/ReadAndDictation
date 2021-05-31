@@ -61,16 +61,13 @@ class HomeViewController: UIViewController {
         bookContentImageViewStack.addArrangedSubview(leftImageView)
         bookContentImageViewStack.addArrangedSubview(rightImageView)
         bookContentImageViewStack.spacing = 9
-        leftImageView.translatesAutoresizingMaskIntoConstraints = false
-        rightImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            leftImageView.widthAnchor.constraint(equalTo: leftImageView.heightAnchor, multiplier: 167 / 120)
-        ])
-        NSLayoutConstraint.activate([
-            rightImageView.widthAnchor.constraint(equalTo: rightImageView.heightAnchor, multiplier: 167 / 120)
-            
-        ])
-        rightImageView.translatesAutoresizingMaskIntoConstraints = false
+        leftImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(leftImageView.snp.height).multipliedBy(167.0 / 120)
+        }
+        rightImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(rightImageView.snp.height).multipliedBy(167.0 / 120)
+        }
+
         
         // Set up bookContentStack
         let bookContentStack = UIStackView()

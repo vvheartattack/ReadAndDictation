@@ -24,12 +24,17 @@ class MainTabBarController: UITabBarController {
         middleButton.contentEdgeInsets = .init(top: 5, left: 16, bottom: 16, right: 16)
         middleButton.addTarget(self, action: #selector(middleButtonTapped(button:)), for: .touchUpInside)
         tabBar.addSubview(middleButton)
-        middleButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            middleButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1 / 3),
-            middleButton.centerXAnchor.constraint(equalTo: self.tabBar.centerXAnchor),
-            middleButton.topAnchor.constraint(equalTo: self.tabBar.topAnchor)
-        ])
+//        middleButton.translatesAutoresizingMaskIntoConstraints = false
+        middleButton.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view.snp.width).multipliedBy(1.0 / 3)
+            make.centerX.equalTo(tabBar.snp.centerX)
+            make.top.equalTo(tabBar.snp.top)
+        }
+//        NSLayoutConstraint.activate([
+//            middleButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1 / 3),
+//            middleButton.centerXAnchor.constraint(equalTo: self.tabBar.centerXAnchor),
+//            middleButton.topAnchor.constraint(equalTo: self.tabBar.topAnchor)
+//        ])
         middleButton.addTarget(self, action: #selector(middleButtonTapped(button:)), for: .touchUpInside)
     }
     
