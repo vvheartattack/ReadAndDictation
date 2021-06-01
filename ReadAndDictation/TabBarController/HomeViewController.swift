@@ -34,11 +34,21 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigationBarButtons()
         setUpUpperLayout()
+        setUpBelowLayout()
 
+    }
+    
+    
+    func setUpBelowLayout() {
+        
     }
     
     func setUpUpperLayout() {
         let bookContentView = UIView()
+        self.view.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
+        bookContentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.view.addSubview(bookContentView)
+        
         let bookContentLabel = UILabel()
         bookContentLabel.text = "课本内容"
         bookContentLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
@@ -63,9 +73,12 @@ class HomeViewController: UIViewController {
         bookContentImageViewStack.spacing = 9
         leftImageView.snp.makeConstraints { (make) in
             make.width.equalTo(leftImageView.snp.height).multipliedBy(167.0 / 120)
+            make.leading.equalToSuperview()
         }
         rightImageView.snp.makeConstraints { (make) in
             make.width.equalTo(rightImageView.snp.height).multipliedBy(167.0 / 120)
+            make.trailing.equalToSuperview()
+            
         }
 
         
@@ -79,11 +92,12 @@ class HomeViewController: UIViewController {
             make.leading.equalToSuperview()
         }
         bookContentStack.addArrangedSubview(bookContentImageViewStack)
-        self.view.addSubview(bookContentStack)
+        bookContentView.addSubview(bookContentStack)
         bookContentStack.snp.makeConstraints { (make) in
             make.leading.equalTo(self.view.snp.leading).offset(16)
             make.trailing.equalTo(self.view.snp.trailing).offset(-16)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(16)
+            make.bottom.equalToSuperview()
         }
         bookContentStack.spacing = 16
     
@@ -170,6 +184,11 @@ class HomeViewController: UIViewController {
         rightStartDictationLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(rightStartDicationImageView.snp.leading).offset(-4)
             make.bottom.equalToSuperview().offset(-16)
+        }
+        bookContentView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(bookContentStack.snp.bottom).offset(20)
         }
     }
 
