@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class MineViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }

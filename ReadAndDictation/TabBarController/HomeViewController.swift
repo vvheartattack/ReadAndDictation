@@ -34,14 +34,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigationBarButtons()
         setUpUpperLayout()
-        setUpBelowLayout()
+//        setUpBelowLayout()
 
     }
     
     
-    func setUpBelowLayout() {
-        
-    }
+//    func setUpBelowLayout() {
+//
+//    }
     
     func setUpUpperLayout() {
         let bookContentView = UIView()
@@ -190,6 +190,16 @@ class HomeViewController: UIViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(bookContentStack.snp.bottom).offset(20)
         }
+        
+        let homePageView = HomePageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        addChild(homePageView)
+        self.view.addSubview(homePageView.view)
+        homePageView.view.snp.makeConstraints { (make) in
+            make.top.equalTo(bookContentView.snp.bottom).offset(9)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
     }
 
 }

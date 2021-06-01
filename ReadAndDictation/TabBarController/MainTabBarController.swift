@@ -54,7 +54,7 @@ class MainTabBarController: UITabBarController {
         home.tabBarItem.title = "首页"
         home.tabBarItem.image = UIImage(named: "tab栏／icon／课本／选中")
         
-        let myPage = UINavigationController(rootViewController: MyPageViewController())
+        let myPage = UINavigationController(rootViewController: MineViewController())
         myPage.tabBarItem.title = "我的"
         myPage.tabBarItem.image = UIImage(named: "矩形备份 2")
         
