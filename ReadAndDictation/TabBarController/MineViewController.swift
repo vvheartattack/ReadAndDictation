@@ -169,6 +169,7 @@ class MineViewController: UIViewController, UITableViewDelegate,UITableViewDataS
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        // 使得 tableView 下面为空，没有 cell 的横线
         belowTableView.tableFooterView = UIView(frame: CGRect.zero)
         
     }

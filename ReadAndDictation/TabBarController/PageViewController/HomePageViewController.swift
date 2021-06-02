@@ -12,6 +12,7 @@ class HomePageViewController: UIPageViewController {
     let pageControl = UIPageControl()
     let initialPage = 0
     
+    
     lazy var controlView: UIView = {
         let controlView = UIView()
         controlView.backgroundColor = .white

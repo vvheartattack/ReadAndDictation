@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 class HomeViewController: UIViewController {
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        self.view.addSubview(scrollView)
+        return scrollView
+    }()
 
     func setUpNavigationBarButtons() {
         // Set up leftBarButtonItem and rightBarButtonItem
-        
-        //        let leftBarButton = UIBarButtonItem()
-        //        leftBarButton.setBackgroundImage(UIImage(named: "导航栏／标签／h64／活动／免费领会员"), for: .normal, barMetrics: .default)
-        //
-        //        self.navigationItem.leftBarButtonItem = leftBarButton
-        
         let leftNavigationButton = UIButton()
         leftNavigationButton.setImage(UIImage(named: "导航栏／标签／h64／活动／免费领会员"), for: .normal)
         leftNavigationButton.frame.size = CGSize(width: 120, height: 32)
@@ -33,17 +33,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigationBarButtons()
-        setUpUpperLayout()
-//        setUpBelowLayout()
+        setUpLayout()
 
     }
     
-    
-//    func setUpBelowLayout() {
-//
-//    }
-    
-    func setUpUpperLayout() {
+    func setUpLayout() {
         let bookContentView = UIView()
         self.view.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
         bookContentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

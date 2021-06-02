@@ -8,23 +8,52 @@
 import UIKit
 
 class AfterSchoolViewController: UIViewController {
-
+    
+    lazy var afterSchoolTableView: UITableView = {
+        let afterSchoolTableView = UITableView()
+        self.view.addSubview(afterSchoolTableView)
+        afterSchoolTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "cell")
+        afterSchoolTableView.tableFooterView = UIView(frame: CGRect.zero)
+        return afterSchoolTableView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        
+        afterSchoolTableView.snp.makeConstraints { (make) in
+            make.leading.bottom.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(49)
+        }
+        
+        afterSchoolTableView.delegate = self
+        afterSchoolTableView.dataSource = self
+        
+    }
+}
+extension AfterSchoolViewController: UITableViewDelegate {
+    
+}
 
-        // Do any additional setup after loading the view.
+extension AfterSchoolViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "cell"
+        let cell = afterSchoolTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! HomeTableViewCell
+        let titleGroup = ["小学生古诗词诵读", "青少年古诗拓展诵读"]
+        let descriptionGroup = ["小学生必备课外补充金牌读物", "青少年实用古诗集合"]
+        let imageGroup = [UIImage(named: "左图"), UIImage(named: "右图")]
+        cell.cellTitleLabel.text = titleGroup[indexPath.row]
+        cell.cellDescriptionLabel.text = descriptionGroup[indexPath.row]
+        cell.cellImageView.image = imageGroup[indexPath.row]
+        return cell
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 122
+    }
+    
 }
