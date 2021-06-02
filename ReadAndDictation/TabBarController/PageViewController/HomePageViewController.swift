@@ -11,52 +11,156 @@ class HomePageViewController: UIPageViewController {
     var pages = [UIViewController]()
     let pageControl = UIPageControl()
     let initialPage = 0
+    
+    lazy var controlView: UIView = {
+        let controlView = UIView()
+        controlView.backgroundColor = .white
+        self.view.addSubview(controlView)
+        return controlView
+    }()
+    
+    lazy var afterSchoolLabel: UILabel = {
+        let afterSchoolLabel = UILabel()
+        afterSchoolLabel.text = "课外"
+        afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        afterSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        controlView.addSubview(afterSchoolLabel)
+        afterSchoolLabel.isUserInteractionEnabled = true
+        afterSchoolLabel.addGestureRecognizer(tapAfterSchoolLabelRecognizer)
+        return afterSchoolLabel
+    }()
+    
+    lazy var entranceForSchoolLabel: UILabel = {
+        let entranceForSchoolLabel = UILabel()
+        entranceForSchoolLabel.text = "升学"
+        entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+        controlView.addSubview(entranceForSchoolLabel)
+        entranceForSchoolLabel.isUserInteractionEnabled = true
+        entranceForSchoolLabel.addGestureRecognizer(tapEntranceForSchoolLabelRecognizer)
+        return entranceForSchoolLabel
+    }()
+    
+    lazy var afterSchoolUnderlineView: UIView = {
+        let afterSchoolUnderlineView = UIView()
+        afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        controlView.addSubview(afterSchoolUnderlineView)
+        return afterSchoolUnderlineView
+    }()
+    
+    lazy var entranceForSchoolUnderlineView: UIView = {
+        let entranceForSchoolUnderlineView = UIView()
+        entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        controlView.addSubview(entranceForSchoolUnderlineView)
+        return entranceForSchoolUnderlineView
+    }()
+    
+    lazy var dividingLineView: UIView = {
+        let dividingLineView = UIView()
+        dividingLineView.backgroundColor = #colorLiteral(red: 0.9098039216, green: 0.9098039216, blue: 0.9098039216, alpha: 1)
+        self.view.addSubview(dividingLineView)
+        return dividingLineView
+    }()
+    
+    lazy var tapAfterSchoolLabelRecognizer: UITapGestureRecognizer = {
+        let tapAfterSchoolLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(afterSchoolLabelTapped(_:)))
+        return tapAfterSchoolLabelRecognizer
+    }()
+    
+    lazy var tapEntranceForSchoolLabelRecognizer: UITapGestureRecognizer = {
+        let tapEntranceForSchoolLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(entranceForSchoolLabelTapped(_:)))
+        return tapEntranceForSchoolLabelRecognizer
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        style()
         layout()
         // Do any additional setup after loading the view.
     }
 }
 
 extension HomePageViewController {
+    
+    
     func setUp() {
         dataSource = self
         delegate = self
         
-        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+        
         // create an  array of view controllers
         let afterSchoolViewController = AfterSchoolViewController()
         let entranceForSchoolViewController = EntranceForSchoolViewController()
         
+        
         pages.append(afterSchoolViewController)
         pages.append(entranceForSchoolViewController)
-        
-        // set up the initial view controller to be displayed
-        setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
+        setViewControllers([pages[initialPage]], direction: .reverse, animated: true, completion: nil)
     }
-    
-    func style() {
-        pageControl.currentPageIndicatorTintColor = .systemBlue
-        pageControl.pageIndicatorTintColor = .systemGray2
-        pageControl.numberOfPages = pages.count
-        pageControl.currentPage = initialPage
-    }
-    
+
     func layout() {
-        self.view.addSubview(pageControl)
-        pageControl.snp.makeConstraints { (make) in
-            make.top.width.equalToSuperview()
+        controlView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(49)
         }
+        
+        afterSchoolLabel.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(16)
+        }
+        entranceForSchoolLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(afterSchoolLabel.snp.trailing).offset(28)
+            make.top.equalToSuperview().offset(16)
+        }
+        
+        afterSchoolUnderlineView.snp.makeConstraints { (make) in
+            make.width.equalTo(24)
+            make.height.equalTo(1)
+            make.centerX.equalTo(afterSchoolLabel.snp.centerX)
+            make.bottom.equalToSuperview()
+        }
+        
+        
+        entranceForSchoolUnderlineView.snp.makeConstraints { (make) in
+            make.width.equalTo(24)
+            make.height.equalTo(1)
+            make.centerX.equalTo(entranceForSchoolLabel.snp.centerX)
+            make.bottom.equalToSuperview()
+        }
+        
+        
+        dividingLineView.snp.makeConstraints { (make) in
+            make.height.equalTo(0.5)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalTo(controlView.snp.bottom)
+        }
+        
     }
 }
 
 extension HomePageViewController {
-    @objc func pageControlTapped(_ sender: UIPageControl) {
-            setViewControllers([pages[sender.currentPage]], direction: .forward, animated: true, completion: nil)
+    
+    @objc func afterSchoolLabelTapped(_ recognizer: UITapGestureRecognizer) {
+        afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        afterSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+        afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        entranceForSchoolUnderlineView.backgroundColor = .white
+        setViewControllers([pages[0]], direction: .reverse, animated: true, completion: nil)
     }
+    
+    @objc func entranceForSchoolLabelTapped(_ recognizer: UITapGestureRecognizer) {
+        entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        entranceForSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        afterSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+        entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+        afterSchoolUnderlineView.backgroundColor = .white
+        setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
+    }
+    
 }
 
 extension HomePageViewController: UIPageViewControllerDelegate {
@@ -64,19 +168,33 @@ extension HomePageViewController: UIPageViewControllerDelegate {
             guard let viewControllers = pageViewController.viewControllers else { return }
             guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
             
-            pageControl.currentPage = currentIndex
+            if currentIndex == 0 {
+                afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+                afterSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+                entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+                afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                entranceForSchoolUnderlineView.backgroundColor = .white
+            } else {
+                entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+                entranceForSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+                afterSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+                entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                afterSchoolUnderlineView.backgroundColor = .white
+                setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
+            }
         }
 }
 
 extension HomePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
-        if currentIndex == 0 {
-            return pages.last
-        } else {
+        if currentIndex != 0 {
             return pages[currentIndex - 1]
+        }else {
+            return nil
         }
-//        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -84,9 +202,8 @@ extension HomePageViewController: UIPageViewControllerDataSource {
         if currentIndex < pages.count - 1 {
             return pages[currentIndex + 1]
         } else {
-            return pages.first
+            return nil
         }
-//        return nil
     }
     
     
