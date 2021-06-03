@@ -10,9 +10,27 @@ import SnapKit
 class HomeViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenHeight = UIScreen.main.bounds.size.height
         let scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: screenWidth, height: screenHeight)
+        scrollView.isScrollEnabled = true
         self.view.addSubview(scrollView)
         return scrollView
+    }()
+    
+    lazy var scrollViewContentView: UIView = {
+        let scrollViewContentView = UIView()
+        scrollViewContentView.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
+        scrollView.addSubview(scrollViewContentView)
+        return scrollViewContentView
+    }()
+    
+    lazy var bookContentView: UIView = {
+        let bookContentView = UIView()
+        bookContentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        scrollViewContentView.addSubview(bookContentView)
+        return bookContentView
     }()
 
     func setUpNavigationBarButtons() {
@@ -38,10 +56,7 @@ class HomeViewController: UIViewController {
     }
     
     func setUpLayout() {
-        let bookContentView = UIView()
         self.view.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
-        bookContentView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.view.addSubview(bookContentView)
         
         let bookContentLabel = UILabel()
         bookContentLabel.text = "课本内容"
@@ -181,18 +196,45 @@ class HomeViewController: UIViewController {
         }
         bookContentView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(scrollViewContentView.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(bookContentStack.snp.bottom).offset(20)
+//            make.centerX.equalToSuperview()
         }
         
         let homePageView = HomePageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
         addChild(homePageView)
-        self.view.addSubview(homePageView.view)
+        scrollViewContentView.addSubview(homePageView.view)
         homePageView.view.snp.makeConstraints { (make) in
             make.top.equalTo(bookContentView.snp.bottom).offset(9)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+//            make.centerX.equalToSuperview()
         }
+        
+        scrollViewContentView.snp.makeConstraints { (make) in
+            make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            
+        }
+        
+        let contentViewCenterY = scrollViewContentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+        contentViewCenterY.priority = .defaultLow
+
+        let contentViewHeight = scrollViewContentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
+        contentViewHeight.priority = .defaultLow
+
+        NSLayoutConstraint.activate([
+            scrollViewContentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentViewCenterY,
+            contentViewHeight
+        ])
+        
+        scrollView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
         
     }
 

@@ -7,23 +7,13 @@
 
 import UIKit
 
-class MineViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = belowTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "hello,world!"
-        // Add arrow on the right side of cells
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 56
-    }
-    
-    private let belowTableView = UITableView()
+class MineViewController: UIViewController {
+    lazy var belowTableView: UITableView = {
+        let belowTableView = UITableView()
+        belowTableView.register(MineTableViewCell.self, forCellReuseIdentifier: "cell")
+        self.view.addSubview(belowTableView)
+        return belowTableView
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpLayout()
@@ -158,11 +148,8 @@ class MineViewController: UIViewController, UITableViewDelegate,UITableViewDataS
 //        ])
         
         // Set up belowTableView
-        belowTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         belowTableView.delegate = self
         belowTableView.dataSource = self
-        self.view.addSubview(belowTableView)
-//        belowTableView.translatesAutoresizingMaskIntoConstraints = false
         belowTableView.snp.makeConstraints { (make) in
             make.top.equalTo(basicView.snp.bottom).offset(8)
             make.leading.equalToSuperview()
@@ -174,4 +161,34 @@ class MineViewController: UIViewController, UITableViewDelegate,UITableViewDataS
         
     }
 
+}
+
+extension MineViewController: UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = belowTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MineTableViewCell
+        let cellTitles = ["会员中心",
+                          "分享有好礼",
+                          "使用兑换码",
+                          "意见反馈",
+                          "好评鼓励",
+                          "设置"]
+        let cellImages = [UIImage(named: "vipCenterIcon"),
+                        UIImage(named: "sharePresentIcon"),
+                        UIImage(named: "exchangeCodeIcon"),
+                        UIImage(named: "feedbackIcon"),
+                        UIImage(named: "encourageIcon"),
+                        UIImage(named: "settingIcon")]
+        cell.cellImageView.image = cellImages[indexPath.row]
+        cell.cellTitleLabel.text = cellTitles[indexPath.row]
+        // Add arrow on the right side of cells
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
+    }
 }

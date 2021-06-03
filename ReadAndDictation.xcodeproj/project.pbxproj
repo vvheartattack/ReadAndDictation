@@ -20,6 +20,7 @@
 		0992CAF1266618B4008F2AFF /* AfterSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF0266618B4008F2AFF /* AfterSchoolViewController.swift */; };
 		0992CAF3266618CF008F2AFF /* EntranceForSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF2266618CF008F2AFF /* EntranceForSchoolViewController.swift */; };
 		0992CAF526676A7C008F2AFF /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF426676A7C008F2AFF /* HomeTableViewCell.swift */; };
+		0992CAF8266787B4008F2AFF /* MineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */; };
 		F43CA49E9C13535F96DA4F68 /* Pods_ReadAndDictation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74F48BD7A2B6C324779753AA /* Pods_ReadAndDictation.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		0992CAF0266618B4008F2AFF /* AfterSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterSchoolViewController.swift; sourceTree = "<group>"; };
 		0992CAF2266618CF008F2AFF /* EntranceForSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceForSchoolViewController.swift; sourceTree = "<group>"; };
 		0992CAF426676A7C008F2AFF /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTableViewCell.swift; sourceTree = "<group>"; };
 		74F48BD7A2B6C324779753AA /* Pods_ReadAndDictation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReadAndDictation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87C5C25AA614F26BAD9239AF /* Pods-ReadAndDictation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReadAndDictation.release.xcconfig"; path = "Target Support Files/Pods-ReadAndDictation/Pods-ReadAndDictation.release.xcconfig"; sourceTree = "<group>"; };
 		BB603EAD616CC0EC1C092CFF /* Pods-ReadAndDictation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReadAndDictation.debug.xcconfig"; path = "Target Support Files/Pods-ReadAndDictation/Pods-ReadAndDictation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				0992CAE4265CA37F008F2AFF /* HomeViewController.swift */,
 				0992CAE6265CA393008F2AFF /* MineViewController.swift */,
 				0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */,
+				0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				0992CAF526676A7C008F2AFF /* HomeTableViewCell.swift in Sources */,
 				0992CAD2265C9FC9008F2AFF /* ViewController.swift in Sources */,
 				0992CAF3266618CF008F2AFF /* EntranceForSchoolViewController.swift in Sources */,
+				0992CAF8266787B4008F2AFF /* MineTableViewCell.swift in Sources */,
 				0992CAE9265CA3AA008F2AFF /* ExtensionToolViewController.swift in Sources */,
 				0992CAEE2666183E008F2AFF /* HomePageViewController.swift in Sources */,
 				0992CACE265C9FC9008F2AFF /* AppDelegate.swift in Sources */,
