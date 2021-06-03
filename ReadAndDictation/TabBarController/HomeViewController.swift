@@ -216,20 +216,21 @@ class HomeViewController: UIViewController {
             make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
             make.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
             make.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            make.centerX.centerY.equalToSuperview()
             
         }
         
-        let contentViewCenterY = scrollViewContentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
-        contentViewCenterY.priority = .defaultLow
-
-        let contentViewHeight = scrollViewContentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
-        contentViewHeight.priority = .defaultLow
-
-        NSLayoutConstraint.activate([
-            scrollViewContentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            contentViewCenterY,
-            contentViewHeight
-        ])
+//        let contentViewCenterY = scrollViewContentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor)
+//        contentViewCenterY.priority = .defaultLow
+//
+//        let contentViewHeight = scrollViewContentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
+//        contentViewHeight.priority = .defaultLow
+//
+//        NSLayoutConstraint.activate([
+//            scrollViewContentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//            contentViewCenterY,
+//            contentViewHeight
+//        ])
         
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
