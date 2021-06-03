@@ -214,8 +214,8 @@ class HomeViewController: UIViewController {
         scrollViewContentView.snp.makeConstraints { (make) in
             make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
             make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
+            make.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            make.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
             
         }
         
