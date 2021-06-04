@@ -60,9 +60,10 @@ class HomeViewController: UIViewController {
         
         scrollView.addSubview(scrollViewContentView)
         scrollViewContentView.snp.makeConstraints { (make) in
-            make.leading.trailing.top.equalToSuperview().inset(16)
+            make.top.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.width.equalTo(scrollView.snp.width).offset(-32)
+            make.width.equalTo(scrollView.snp.width)
             make.height.equalToSuperview()
 //            make.centerX.equalToSuperview()
         }
@@ -71,7 +72,7 @@ class HomeViewController: UIViewController {
         
         scrollViewContentView.addSubview(bookContentView)
         bookContentView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview().inset(16)
         }
         
         let homePageViewController = HomePageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
