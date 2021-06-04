@@ -29,7 +29,7 @@ class MineViewController: UIViewController {
         avatarImageView.image = UIImage(named: "头像")
         basicView.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(80)
+            make.top.equalToSuperview().offset(63)
             make.leading.equalToSuperview().offset(16)
         }
         
@@ -66,7 +66,7 @@ class MineViewController: UIViewController {
         basicView.addSubview(dictationLabel)
         dictationLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(168)
+            make.bottom.equalToSuperview().offset(-48)
         }
         let dictationNumberLabel = UILabel()
         dictationNumberLabel.text = "16"
@@ -148,7 +148,7 @@ class MineViewController: UIViewController {
         belowTableView.delegate = self
         belowTableView.dataSource = self
         belowTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top)
+            make.top.equalToSuperview()
             make.leading.trailing.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -157,7 +157,7 @@ class MineViewController: UIViewController {
         belowTableView.tableFooterView = UIView(frame: CGRect.zero)
         
         belowTableView.tableHeaderView = basicView
-        belowTableView.tableHeaderView?.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: 214)
+        belowTableView.tableHeaderView?.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: 222)
         
     }
 
