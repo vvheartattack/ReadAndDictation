@@ -29,7 +29,7 @@ class MineViewController: UIViewController {
         avatarImageView.image = UIImage(named: "头像")
         basicView.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(63)
+            make.top.equalToSuperview().offset(40)
             make.leading.equalToSuperview().offset(16)
         }
         
@@ -66,7 +66,7 @@ class MineViewController: UIViewController {
         basicView.addSubview(dictationLabel)
         dictationLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
-            make.bottom.equalToSuperview().offset(-48)
+            make.top.equalTo(avatarImageView.snp.bottom).offset(40)
         }
         let dictationNumberLabel = UILabel()
         dictationNumberLabel.text = "16"
@@ -122,6 +122,7 @@ class MineViewController: UIViewController {
         dividingLineView.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(8)
+            make.top.equalTo(audioNumberLabel.snp.bottom).offset(20)
         }
     }
     
@@ -156,8 +157,14 @@ class MineViewController: UIViewController {
         // 使得 tableView 下面为空，没有 cell 的横线
         belowTableView.tableFooterView = UIView(frame: CGRect.zero)
         
+        // set tableHeaderView of belowTableView
         belowTableView.tableHeaderView = basicView
-        belowTableView.tableHeaderView?.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: 222)
+        basicView.snp.makeConstraints { (make) in
+            make.width.equalTo(belowTableView.snp.width)
+        }
+        belowTableView.tableHeaderView?.layoutIfNeeded()
+        belowTableView.tableHeaderView = basicView
+
         
     }
 
