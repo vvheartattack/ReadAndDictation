@@ -175,6 +175,9 @@ extension MineViewController: UITableViewDelegate,UITableViewDataSource {
         return 6
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = belowTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MineTableViewCell
         let cellTitles = ["会员中心",
