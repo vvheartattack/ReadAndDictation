@@ -18,9 +18,7 @@ class EntranceForSchoolViewController: UIViewController {
     }()
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func setUp() {
         entranceForSchoolTableView.snp.makeConstraints { (make) in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(49)
@@ -28,6 +26,15 @@ class EntranceForSchoolViewController: UIViewController {
         
         entranceForSchoolTableView.delegate = self
         entranceForSchoolTableView.dataSource = self
+        
+        // 禁止 entranceForSchoolTableView 滚动
+        entranceForSchoolTableView.isScrollEnabled = false
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setUp()
         
     }
 }

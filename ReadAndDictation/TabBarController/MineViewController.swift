@@ -14,28 +14,17 @@ class MineViewController: UIViewController {
         self.view.addSubview(belowTableView)
         return belowTableView
     }()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpLayout()
-
-        // Do any additional setup after loading the view.
-    }
     
-    func setUpLayout() {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
-        // Set up basicView
+    lazy var basicView: UIView = {
         let basicView = UIView()
         basicView.backgroundColor = .white
-        self.view.addSubview(basicView)
-        basicView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.bottom.equalTo(self.view.snp.top).offset(231)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-
-        // Set up above part of the view
+//        self.view.addSubview(basicView)
+        return basicView
+    }()
+    
+    func setUpContentOfBasciView() {
+        // Set up content of basicView
+    
         let avatarImageView = UIImageView()
         avatarImageView.image = UIImage(named: "头像")
         basicView.addSubview(avatarImageView)
@@ -125,39 +114,50 @@ class MineViewController: UIViewController {
             make.top.equalTo(audioLabel.snp.bottom)
             make.leading.equalTo(audioLabel.snp.leading)
         }
+        
+        // set up dividing line
+        let dividingLineView = UIView()
+        dividingLineView.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
+        basicView.addSubview(dividingLineView)
+        dividingLineView.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(8)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpLayout()
 
-        
-        // Set up below part of the view
-        // Set up vipCenterView
-//        let vipCenterView = UIView()
-//        vipCenterView.translatesAutoresizingMaskIntoConstraints = false
-//        self.view.addSubview(vipCenterView)
-//        NSLayoutConstraint.activate([
-//            vipCenterView.topAnchor.constraint(equalTo: dividingLineView.bottomAnchor),
-//            vipCenterView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-//            vipCenterView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-//            vipCenterView.heightAnchor.constraint(equalToConstant: 56)
-//        ])
-//        let vipCenterImageView = UIImageView()
-//        vipCenterImageView.image = UIImage(named: "vipCenterIcon")
-//        vipCenterImageView.translatesAutoresizingMaskIntoConstraints = false
-//        vipCenterView.addSubview(vipCenterImageView)
-//        NSLayoutConstraint.activate([
-//            vipCenterImageView.leadingAnchor.constraint(equalTo: vipCenterView.leadingAnchor, constant: 16),
-//            vipCenterImageView.topAnchor.constraint(equalTo: vipCenterView.topAnchor, constant: 16)
-//        ])
-        
+        // Do any additional setup after loading the view.
+    }
+    
+    func setUpLayout() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.view.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
+        // Set up basicView
+//        basicView.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview()
+//            make.bottom.equalTo(self.view.snp.top).offset(231)
+//            make.leading.equalToSuperview()
+//            make.trailing.equalToSuperview()
+//        }
+        setUpContentOfBasciView()
+
         // Set up belowTableView
         belowTableView.delegate = self
         belowTableView.dataSource = self
         belowTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(basicView.snp.bottom).offset(8)
-            make.leading.equalToSuperview()
+            make.top.equalTo(self.view.snp.top)
+            make.leading.trailing.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         // 使得 tableView 下面为空，没有 cell 的横线
         belowTableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        belowTableView.tableHeaderView = basicView
+        belowTableView.tableHeaderView?.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: 214)
         
     }
 

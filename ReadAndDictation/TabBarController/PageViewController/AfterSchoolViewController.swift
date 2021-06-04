@@ -18,9 +18,7 @@ class AfterSchoolViewController: UIViewController {
     }()
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func setUp() {
         afterSchoolTableView.snp.makeConstraints { (make) in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(49)
@@ -28,6 +26,15 @@ class AfterSchoolViewController: UIViewController {
         
         afterSchoolTableView.delegate = self
         afterSchoolTableView.dataSource = self
+        
+        // 禁止 afterSchoolTableView 滚动
+        afterSchoolTableView.isScrollEnabled = false
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setUp()
         
     }
 }
