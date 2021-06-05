@@ -211,18 +211,26 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
+        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY))
         if scrollView.tag == 10 {
             // Delegate for subScrollViews
-            let subScrollView = scrollView
+            var subScrollViews = [UIScrollView]()
+            for subviews in homePageViewController.pages.map({ $0.view.subviews }) {
+                for view in subviews {
+                    if let subScrollView = view as? UIScrollView {
+                        subScrollViews.append(subScrollView)
+                    }
+                }
+            }
+            // 对所有的 subScrollView 都设置的原因是，当从底部向上滑动至 Header 出现时，所有 subScrollView 都应该被重新置顶。
             if mainScrollView.contentOffset.y < boundaryValue {
-                subScrollView.contentOffset.y = 1
+                subScrollViews.forEach { $0.contentOffset.y = 0 }
             }
         } else {
             // Delegate for mainScrollView
             for view in homePageViewController.viewControllers?.first?.view.subviews ?? [] {
-                if let subScrollView = view as? UIScrollView {
-                    if subScrollView.contentOffset.y > 1 || mainScrollView.contentOffset.y >= boundaryValue {
+                if let currentSubScrollView = view as? UIScrollView {
+                    if currentSubScrollView.contentOffset.y > 0 || mainScrollView.contentOffset.y >= boundaryValue {
                         mainScrollView.contentOffset.y = boundaryValue
                     }
                 }
