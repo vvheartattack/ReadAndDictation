@@ -7,10 +7,18 @@
 
 import UIKit
 
-class HomePageViewController: UIPageViewController {
-    var pages = [UIViewController]()
-    let pageControl = UIPageControl()
-    let initialPage = 0
+class HomePageViewController: UIPageViewController, PageableViewController {
+    private var pages = [UIViewController]()
+    var subScrollViews = [UIScrollView]()
+    var currentSubScrollView: UIScrollView {
+        get {
+            subScrollViews[currentPageIndex]
+        }
+    }
+    var subScrollViewDelegate: SubScrollViewDelegate?
+    
+    private let pageControl = UIPageControl()
+    private var currentPageIndex = 0
     
     
     lazy var controlView: UIView = {
@@ -95,8 +103,12 @@ extension HomePageViewController {
         
         
         pages.append(afterSchoolViewController)
+        afterSchoolViewController.subScrollViewDelegate = subScrollViewDelegate
+        subScrollViews.append(afterSchoolViewController.afterSchoolTableView)
         pages.append(entranceForSchoolViewController)
-        setViewControllers([pages[initialPage]], direction: .reverse, animated: true, completion: nil)
+        entranceForSchoolViewController.subScrollViewDelegate = subScrollViewDelegate
+        subScrollViews.append(entranceForSchoolViewController.entranceForSchoolTableView)
+        setViewControllers([pages[currentPageIndex]], direction: .reverse, animated: true, completion: nil)
     }
 
     func layout() {
@@ -149,7 +161,8 @@ extension HomePageViewController {
         entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
         afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
         entranceForSchoolUnderlineView.backgroundColor = .white
-        setViewControllers([pages[0]], direction: .reverse, animated: true, completion: nil)
+        currentPageIndex = 0
+        setViewControllers([pages[currentPageIndex]], direction: .reverse, animated: true, completion: nil)
     }
     
     @objc func entranceForSchoolLabelTapped(_ recognizer: UITapGestureRecognizer) {
@@ -159,7 +172,8 @@ extension HomePageViewController {
         afterSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
         entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
         afterSchoolUnderlineView.backgroundColor = .white
-        setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
+        currentPageIndex = 1
+        setViewControllers([pages[currentPageIndex]], direction: .forward, animated: true, completion: nil)
     }
     
 }
@@ -190,18 +204,16 @@ extension HomePageViewController: UIPageViewControllerDelegate {
 
 extension HomePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
-        if currentIndex != 0 {
-            return pages[currentIndex - 1]
+        if currentPageIndex != 0 {
+            return pages[currentPageIndex - 1]
         }else {
             return nil
         }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
-        if currentIndex < pages.count - 1 {
-            return pages[currentIndex + 1]
+        if currentPageIndex < pages.count - 1 {
+            return pages[currentPageIndex + 1]
         } else {
             return nil
         }

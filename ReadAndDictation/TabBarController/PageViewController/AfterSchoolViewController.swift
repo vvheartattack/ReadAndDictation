@@ -9,6 +9,8 @@ import UIKit
 
 class AfterSchoolViewController: UIViewController {
     
+    var subScrollViewDelegate: SubScrollViewDelegate?
+    
     lazy var afterSchoolTableView: UITableView = {
         let afterSchoolTableView = UITableView()
         afterSchoolTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -36,7 +38,9 @@ class AfterSchoolViewController: UIViewController {
     }
 }
 extension AfterSchoolViewController: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        subScrollViewDelegate?.subScrollViewDidScroll(scrollView)
+    }
 }
 
 extension AfterSchoolViewController: UITableViewDataSource {

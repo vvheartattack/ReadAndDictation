@@ -8,6 +8,7 @@
 import UIKit
 
 class EntranceForSchoolViewController: UIViewController {
+    var subScrollViewDelegate: SubScrollViewDelegate?
     
     lazy var entranceForSchoolTableView: UITableView = {
         let entranceForSchoolTableView = UITableView()
@@ -36,7 +37,9 @@ class EntranceForSchoolViewController: UIViewController {
     }
 }
 extension EntranceForSchoolViewController: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        subScrollViewDelegate?.subScrollViewDidScroll(scrollView)
+    }
 }
 
 extension EntranceForSchoolViewController: UITableViewDataSource {

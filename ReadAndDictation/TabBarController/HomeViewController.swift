@@ -8,6 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol SubScrollViewDelegate {
+    func subScrollViewDidScroll(_ subScrollView: UIScrollView)
+}
+
+protocol PageableViewController {
+    var subScrollViews: [UIScrollView] { get }
+    var currentSubScrollView: UIScrollView { get }
+}
+
 fileprivate class MyUIScrollView: UIScrollView, UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -82,6 +91,7 @@ class HomeViewController: UIViewController {
         
         let homePageViewController = HomePageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
         self.homePageViewController = homePageViewController
+        homePageViewController.subScrollViewDelegate = self
         addChild(homePageViewController)
         homePageViewController.didMove(toParent: self)
         scrollViewContentView.addSubview(homePageViewController.view)
@@ -195,38 +205,26 @@ class HomeViewController: UIViewController {
         
         setUpNavigationBarButtons()
         setUpLayout()
-        
-        for subviews in homePageViewController.pages.map({ $0.view.subviews }) {
-            for view in subviews {
-                if let subScrollView = view as? UIScrollView {
-                    subScrollView.delegate = self
-                    subScrollView.tag = 10
-                }
-            }
-        }
     }
-
 }
 
+extension HomeViewController: SubScrollViewDelegate {
+    func subScrollViewDidScroll(_ subScrollView: UIScrollView) {
+        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
+        let subScrollViews = homePageViewController.subScrollViews
+        if mainScrollView.contentOffset.y < boundaryValue {
+            subScrollViews.forEach { $0.contentOffset.y = 1 }
+        }
+    }
+}
 
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
-        if scrollView.tag == 10 {
-            // Delegate for subScrollViews
-            let subScrollView = scrollView
-            if mainScrollView.contentOffset.y < boundaryValue {
-                subScrollView.contentOffset.y = 1
-            }
-        } else {
-            // Delegate for mainScrollView
-            for view in homePageViewController.viewControllers?.first?.view.subviews ?? [] {
-                if let subScrollView = view as? UIScrollView {
-                    if subScrollView.contentOffset.y > 1 || mainScrollView.contentOffset.y >= boundaryValue {
-                        mainScrollView.contentOffset.y = boundaryValue
-                    }
-                }
-            }
+        
+        let currentSubScrollView = homePageViewController.currentSubScrollView
+        if currentSubScrollView.contentOffset.y > 1 || mainScrollView.contentOffset.y >= boundaryValue {
+            mainScrollView.contentOffset.y = boundaryValue
         }
     }
 }
