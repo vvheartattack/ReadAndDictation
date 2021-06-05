@@ -11,7 +11,6 @@ class AfterSchoolViewController: UIViewController {
     
     lazy var afterSchoolTableView: UITableView = {
         let afterSchoolTableView = UITableView()
-        self.view.addSubview(afterSchoolTableView)
         afterSchoolTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "cell")
         afterSchoolTableView.tableFooterView = UIView(frame: CGRect.zero)
         return afterSchoolTableView
@@ -19,6 +18,7 @@ class AfterSchoolViewController: UIViewController {
     
     
     func setUp() {
+        self.view.addSubview(afterSchoolTableView)
         afterSchoolTableView.snp.makeConstraints { (make) in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(49)

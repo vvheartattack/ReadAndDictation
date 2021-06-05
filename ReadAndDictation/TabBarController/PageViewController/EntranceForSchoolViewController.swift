@@ -11,7 +11,6 @@ class EntranceForSchoolViewController: UIViewController {
     
     lazy var entranceForSchoolTableView: UITableView = {
         let entranceForSchoolTableView = UITableView()
-        self.view.addSubview(entranceForSchoolTableView)
         entranceForSchoolTableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "cell")
         entranceForSchoolTableView.tableFooterView = UIView(frame: CGRect.zero)
         return entranceForSchoolTableView
@@ -19,6 +18,7 @@ class EntranceForSchoolViewController: UIViewController {
     
     
     func setUp() {
+        self.view.addSubview(entranceForSchoolTableView)
         entranceForSchoolTableView.snp.makeConstraints { (make) in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(49)
