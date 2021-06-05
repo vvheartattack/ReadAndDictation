@@ -18,8 +18,11 @@ protocol PageableViewController {
 }
 
 fileprivate class MyUIScrollView: UIScrollView, UIGestureRecognizerDelegate {
+    var gestureRecognizerWhitelist = [UIGestureRecognizer]()
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        // 只和 subScrollView 同时生效，不应和 UIPageViewController 等负责 Paging 的手势同时生效
+        return gestureRecognizerWhitelist.firstIndex(of: otherGestureRecognizer) != nil
     }
 }
 
@@ -28,7 +31,7 @@ class HomeViewController: UIViewController {
     // MARK: - View Setup
     private var homePageViewController: HomePageViewController!
     
-    lazy var mainScrollView: UIScrollView = {
+    private lazy var mainScrollView: MyUIScrollView = {
         let mainScrollView = MyUIScrollView()
         mainScrollView.delegate = self
         mainScrollView.alwaysBounceVertical = true
@@ -205,6 +208,12 @@ class HomeViewController: UIViewController {
         
         setUpNavigationBarButtons()
         setUpLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if mainScrollView.gestureRecognizerWhitelist.isEmpty {
+            mainScrollView.gestureRecognizerWhitelist.append(contentsOf: homePageViewController.subScrollViews.map { $0.panGestureRecognizer} )
+        }
     }
 }
 
