@@ -7,15 +7,25 @@
 
 import UIKit
 import SnapKit
+
+fileprivate class MyUIScrollView: UIScrollView, UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 class HomeViewController: UIViewController {
     
     // MARK: - View Setup
+    private var homePageViewController: HomePageViewController!
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
-        scrollView.isScrollEnabled = true
-        return scrollView
+    lazy var mainScrollView: UIScrollView = {
+        let mainScrollView = MyUIScrollView()
+        mainScrollView.delegate = self
+        mainScrollView.alwaysBounceVertical = true
+        mainScrollView.isScrollEnabled = true
+        mainScrollView.showsVerticalScrollIndicator = false
+        return mainScrollView
     }()
     
     lazy var scrollViewContentView: UIView = {
@@ -51,24 +61,19 @@ class HomeViewController: UIViewController {
     
     func setUpLayout() {
         
-        self.view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { (make) in
+        self.view.addSubview(mainScrollView)
+        mainScrollView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        scrollView.addSubview(scrollViewContentView)
+        mainScrollView.addSubview(scrollViewContentView)
         scrollViewContentView.snp.makeConstraints { (make) in
-            make.top.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(scrollView.snp.width)
-            make.height.equalToSuperview()
-//            make.centerX.equalToSuperview()
+            make.edges.equalToSuperview()
+            make.width.equalTo(self.view.snp.width)
+            make.height.equalTo(self.view.snp.height).priority(.low)
         }
-//        let contentViewHeight = scrollViewContentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
-//        contentViewHeight.priority = .defaultLow
         
         scrollViewContentView.addSubview(bookContentView)
         bookContentView.snp.makeConstraints { (make) in
@@ -76,17 +81,15 @@ class HomeViewController: UIViewController {
         }
         
         let homePageViewController = HomePageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        self.homePageViewController = homePageViewController
         addChild(homePageViewController)
         homePageViewController.didMove(toParent: self)
         scrollViewContentView.addSubview(homePageViewController.view)
         homePageViewController.view.snp.makeConstraints { (make) in
             make.top.equalTo(bookContentView.snp.bottom).offset(9)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(mainScrollView.snp.height)
         }
-        
-//        scrollViewContentView.setNeedsLayout()
-//        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height + bookContentView.frame.height)
     }
     
     // MARK: - Internal Views Setup
@@ -192,10 +195,38 @@ class HomeViewController: UIViewController {
         
         setUpNavigationBarButtons()
         setUpLayout()
+        
+        for subviews in homePageViewController.pages.map({ $0.view.subviews }) {
+            for view in subviews {
+                if let subScrollView = view as? UIScrollView {
+                    subScrollView.delegate = self
+                    subScrollView.tag = 10
+                }
+            }
+        }
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height + bookContentView.frame.height)
-//    }
 
+}
+
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
+        if scrollView.tag == 10 {
+            // Delegate for subScrollViews
+            let subScrollView = scrollView
+            if mainScrollView.contentOffset.y < boundaryValue {
+                subScrollView.contentOffset.y = 1
+            }
+        } else {
+            // Delegate for mainScrollView
+            for view in homePageViewController.viewControllers?.first?.view.subviews ?? [] {
+                if let subScrollView = view as? UIScrollView {
+                    if subScrollView.contentOffset.y > 1 || mainScrollView.contentOffset.y >= boundaryValue {
+                        mainScrollView.contentOffset.y = boundaryValue
+                    }
+                }
+            }
+        }
+    }
 }

@@ -26,9 +26,6 @@ class EntranceForSchoolViewController: UIViewController {
         
         entranceForSchoolTableView.delegate = self
         entranceForSchoolTableView.dataSource = self
-        
-        // 禁止 entranceForSchoolTableView 滚动
-        entranceForSchoolTableView.isScrollEnabled = false
     }
     
     override func viewDidLoad() {

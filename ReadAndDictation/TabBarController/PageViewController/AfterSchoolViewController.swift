@@ -26,9 +26,6 @@ class AfterSchoolViewController: UIViewController {
         
         afterSchoolTableView.delegate = self
         afterSchoolTableView.dataSource = self
-        
-        // 禁止 afterSchoolTableView 滚动
-        afterSchoolTableView.isScrollEnabled = false
     }
     
     override func viewDidLoad() {
@@ -44,7 +41,7 @@ extension AfterSchoolViewController: UITableViewDelegate {
 
 extension AfterSchoolViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,14 +50,14 @@ extension AfterSchoolViewController: UITableViewDataSource {
         let titleGroup = ["小学生古诗词诵读", "青少年古诗拓展诵读","小学生古诗词诵读", "青少年古诗拓展诵读"]
         let descriptionGroup = ["小学生必备课外补充金牌读物", "青少年实用古诗集合","小学生必备课外补充金牌读物", "青少年实用古诗集合"]
         let imageGroup = [UIImage(named: "左图"), UIImage(named: "右图"),UIImage(named: "左图"), UIImage(named: "右图")]
-        cell.cellTitleLabel.text = titleGroup[indexPath.row]
-        cell.cellDescriptionLabel.text = descriptionGroup[indexPath.row]
-        cell.cellImageView.image = imageGroup[indexPath.row]
+        cell.cellTitleLabel.text = titleGroup[indexPath.row % 2] + indexPath.row.description
+        cell.cellDescriptionLabel.text = descriptionGroup[indexPath.row % 2]
+        cell.cellImageView.image = imageGroup[indexPath.row % 2]
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 122.0
     }
     
 }

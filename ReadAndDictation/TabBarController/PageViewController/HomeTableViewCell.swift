@@ -52,8 +52,8 @@ class HomeTableViewCell: UITableViewCell {
     }
     func layout() {
         cellImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(120)
-            make.height.equalTo(90)
+            make.width.equalTo(120).priority(.high)
+            make.height.equalTo(90).priority(.high)
             make.top.leading.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-16)
         }
