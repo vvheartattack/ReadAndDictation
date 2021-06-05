@@ -180,26 +180,28 @@ extension HomePageViewController {
 
 extension HomePageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            guard let viewControllers = pageViewController.viewControllers else { return }
-            guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
-            
-            if currentIndex == 0 {
-                afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-                afterSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
-                entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-                entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
-                afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
-                entranceForSchoolUnderlineView.backgroundColor = .white
-            } else {
-                entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-                entranceForSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
-                afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-                afterSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
-                entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
-                afterSchoolUnderlineView.backgroundColor = .white
-                setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
-            }
+        guard let viewControllers = pageViewController.viewControllers else { return }
+        guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
+        
+        currentPageIndex = currentIndex
+        
+        if currentIndex == 0 {
+            afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            afterSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+            entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            entranceForSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+            afterSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+            entranceForSchoolUnderlineView.backgroundColor = .white
+        } else {
+            entranceForSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            entranceForSchoolLabel.textColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+            afterSchoolLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+            afterSchoolLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+            entranceForSchoolUnderlineView.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+            afterSchoolUnderlineView.backgroundColor = .white
+            setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
         }
+    }
 }
 
 extension HomePageViewController: UIPageViewControllerDataSource {
