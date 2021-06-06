@@ -219,17 +219,17 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: SubScrollViewDelegate {
     func subScrollViewDidScroll(_ subScrollView: UIScrollView) {
-        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
+        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY))
         let subScrollViews = homePageViewController.subScrollViews
         if mainScrollView.contentOffset.y < boundaryValue {
-            subScrollViews.forEach { $0.contentOffset.y = 1 }
+            subScrollViews.forEach { $0.contentOffset.y = 0.5 }
         }
     }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY) - 1)
+        let boundaryValue = CGFloat(Int(homePageViewController.view.frame.minY))
         
         let currentSubScrollView = homePageViewController.currentSubScrollView
         if currentSubScrollView.contentOffset.y > 1 || mainScrollView.contentOffset.y >= boundaryValue {
