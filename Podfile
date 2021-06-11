@@ -7,4 +7,6 @@ target 'ReadAndDictation' do
 
   # Pods for ReadAndDictation
 	pod 'SnapKit', '~> 5.0.0'
+        pod 'Moya/RxSwift', '~> 14.0.0'
+        pod 'HandyJSON', '~> 5.0.3-beta'
 end

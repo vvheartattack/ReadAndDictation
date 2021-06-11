@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Moya
+import HandyJSON
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +20,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .white
         window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
-        
+//        let provider = MoyaProvider<AccountService>()
+//        provider.request(.visitorLogin(uuid: "1233333", user_type: "iOS")) { result in
+//            switch result {
+//            case let .success(response):
+//                do{
+//                    let data = try response.mapJSON()
+//                    print(data)
+//                } catch {
+//
+//                }
+//
+//                print("succeed")
+//                break
+//            case let .failure(error):
+//                print(error)
+//                break
+//            }
+//        }
+        NetworkManager.shared.fetchVistorLoginModel(completionHandler: { result in
+            print(result.data.name ?? "")
+            print(result.code)
+            print(result.data.isBuy)
+        })
         return true
     }
 
