@@ -22,6 +22,18 @@ class MineViewController: UIViewController {
         return basicView
     }()
     
+    lazy var userNameLabelRecognizer: UITapGestureRecognizer = {
+        let userNameLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(userNameLabelTapped(_:)))
+        return userNameLabelRecognizer
+    }()
+    
+    @objc func userNameLabelTapped(_ recognizer: UITapGestureRecognizer) {
+        let loginViewController = LoginViewController()
+        loginViewController.modalPresentationStyle = .fullScreen
+        loginViewController.modalTransitionStyle = .crossDissolve
+        self.present(loginViewController, animated: true, completion: nil)
+    }
+    
     func setUpContentOfBasciView() {
         // Set up content of basicView
     
@@ -34,8 +46,10 @@ class MineViewController: UIViewController {
         }
         
         let userNameLabel = UILabel()
-        userNameLabel.text = "OIHWDO123"
+        userNameLabel.text = "登录/注册"
         userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        userNameLabel.isUserInteractionEnabled = true
+        userNameLabel.addGestureRecognizer(userNameLabelRecognizer)
         basicView.addSubview(userNameLabel)
         userNameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(avatarImageView.snp.top)
@@ -43,7 +57,7 @@ class MineViewController: UIViewController {
         }
 
         let userNumberLabel = UILabel()
-        userNumberLabel.text = "学号：182047"
+        userNumberLabel.text = "学号"
         userNumberLabel.textColor = #colorLiteral(red: 0.5764705882, green: 0.5921568627, blue: 0.631372549, alpha: 1)
         userNumberLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         basicView.addSubview(userNumberLabel)
