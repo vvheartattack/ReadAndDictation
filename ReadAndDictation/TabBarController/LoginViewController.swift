@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
         let disMissButton = UIButton()
         disMissButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         disMissButton.tintColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+        disMissButton.addTarget(self, action: #selector(disMissButtonTapped(button:)), for: .touchUpInside)
         return disMissButton
     }()
     
@@ -35,7 +36,6 @@ class LoginViewController: UIViewController {
         let loginWithPhoneNumbersLabel = UILabel()
         loginWithPhoneNumbersLabel.text = "手机号登录"
         loginWithPhoneNumbersLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        loginWithPhoneNumbersLabel.textColor = .white
         return loginWithPhoneNumbersLabel
     }()
     
@@ -98,23 +98,25 @@ class LoginViewController: UIViewController {
         return loginButton
     }()
     
-    lazy var agreementAndClauseLabel: UILabel = {
-        let agreementAndClauseLabel = UILabel()
+    lazy var agreementAndClauseTextView: UITextView = {
+        let agreementAndClauseTextView = UITextView()
+        agreementAndClauseTextView.isScrollEnabled = false
         let mutableText =  NSMutableAttributedString(string: "阅读并同意用户协议&隐私条款")
+        agreementAndClauseTextView.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        agreementAndClauseTextView.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
         
-        agreementAndClauseLabel.attributedText = mutableText
-        agreementAndClauseLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        agreementAndClauseLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
-        
-        mutableText.addAttributes([.foregroundColor: #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1), .link: "https://www.baidu.com/"], range: _NSRange(location: 5, length: 4))
-        mutableText.addAttributes([.foregroundColor: #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1), .link: ""], range: _NSRange(location: 10, length: 4))
-        return agreementAndClauseLabel
+        mutableText.addAttributes([.link: "https://www.baidu.com/"], range: _NSRange(location: 5, length: 4))
+        mutableText.addAttributes([.link: ""], range: _NSRange(location: 10, length: 4))
+        agreementAndClauseTextView.attributedText = mutableText
+        return agreementAndClauseTextView
     }()
     
-    lazy var checkMarkImageView: UIImageView = {
-        let checkMarkImageView = UIImageView()
-        checkMarkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-        return checkMarkImageView
+    lazy var checkBoxButton: UIButton = {
+        let checkBoxButton = UIButton()
+        checkBoxButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.selected)
+        checkBoxButton.setImage(UIImage(systemName: "circlebadge"), for: UIControl.State.normal)
+        checkBoxButton.addTarget(self, action: #selector(checkBoxToggle(button:)), for: .touchUpInside)
+        return checkBoxButton
     }()
     
     
@@ -129,16 +131,20 @@ class LoginViewController: UIViewController {
         }
         
         phoneNumberView.addSubview(prefixOfNumbersLabel)
+        // 设置抗拉伸优先级
+        prefixOfNumbersLabel.setContentHuggingPriority(.required, for: .horizontal)
+        // 设置抗压缩优先级
+        prefixOfNumbersLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         prefixOfNumbersLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
-            make.width.equalTo(28)
         }
         
         phoneNumberView.addSubview(phoneNumberTextField)
         phoneNumberTextField.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.leading.equalTo(prefixOfNumbersLabel.snp.trailing).offset(20)
+            make.trailing.equalToSuperview()
         }
         
         self.view.addSubview(loginWithPhoneNumbersLabel)
@@ -184,17 +190,18 @@ class LoginViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(35)
         }
         
-        self.view.addSubview(agreementAndClauseLabel)
-        agreementAndClauseLabel.snp.makeConstraints { (make) in
+        self.view.addSubview(agreementAndClauseTextView)
+        agreementAndClauseTextView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(loginButton.snp.bottom).offset(20)
             
         }
         
-        self.view.addSubview(checkMarkImageView)
-        checkMarkImageView.snp.makeConstraints { (make)in
-            make.trailing.equalTo(agreementAndClauseLabel.snp.leading).offset(-4)
-            make.centerY.equalTo(agreementAndClauseLabel.snp.centerY)
+        self.view.addSubview(checkBoxButton)
+        checkBoxButton.snp.makeConstraints { (make)in
+            make.trailing.equalTo(agreementAndClauseTextView.snp.leading)
+            make.centerY.equalTo(agreementAndClauseTextView.snp.centerY)
+            make.width.height.equalTo(14)
         }
         
     }
@@ -206,3 +213,24 @@ class LoginViewController: UIViewController {
     }
     
 }
+
+extension LoginViewController {
+    @objc func disMissButtonTapped(button: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func checkBoxToggle(button: UIButton){
+        checkBoxButton.isSelected = !checkBoxButton.isSelected
+    }
+}
+
+extension LoginViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        UIApplication.shared.open(URL, options: [:], completionHandler: nil)
+        return false
+    }
+}
+
+//extension UIButton: UIControl {
+//
+//}
