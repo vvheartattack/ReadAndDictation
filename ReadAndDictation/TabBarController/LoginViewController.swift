@@ -78,6 +78,8 @@ class LoginViewController: UIViewController {
         getVertifyCodeButton.setTitle("获取验证码", for: .normal)
         getVertifyCodeButton.setTitleColor(#colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1), for: .normal)
         getVertifyCodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        getVertifyCodeButton.setContentHuggingPriority(.required, for: .horizontal)
+        getVertifyCodeButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         return getVertifyCodeButton
     }()
     
