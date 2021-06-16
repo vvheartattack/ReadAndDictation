@@ -13,7 +13,7 @@ class NetworkManager {
     func fetchVistorLoginModel(completionHandler: @escaping (VisitorLoginModel) -> ()) {
         
         let provider = MoyaProvider<AccountService>()
-        provider.request(.visitorLogin(uuid: "1233333", user_type: "iOS")) { result in
+        provider.request(.visitorLogin) { result in
             switch result {
             case let .success(response):
                 do{

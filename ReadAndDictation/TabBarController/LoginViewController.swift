@@ -7,7 +7,13 @@
 
 import UIKit
 
+var visitorUUID: String = ""
+
 class LoginViewController: UIViewController {
+//    lazy var visitorUUID: String = {
+//        let visitorUUID = ""
+//        return visitorUUID
+//    }()
     lazy var disMissButton: UIButton = {
         let disMissButton = UIButton()
         disMissButton.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -21,7 +27,15 @@ class LoginViewController: UIViewController {
         visitorLoginLabel.text = "游客登录"
         visitorLoginLabel.font = UIFont.systemFont(ofSize: 15)
         visitorLoginLabel.textColor = #colorLiteral(red: 0.7647058824, green: 0.7647058824, blue: 0.7647058824, alpha: 1)
+        visitorLoginLabel.isUserInteractionEnabled = true
+        visitorLoginLabel.addGestureRecognizer(vistorLoginTapRecognizer)
         return visitorLoginLabel
+    }()
+    
+    lazy var vistorLoginTapRecognizer: UITapGestureRecognizer = {
+        let vistorLoginTapRecognizer = UITapGestureRecognizer()
+        vistorLoginTapRecognizer.addTarget(self, action: #selector(visitorLoginLabelTapped(recognizer:)))
+        return vistorLoginTapRecognizer
     }()
     
     lazy var topStack: UIStackView = {
@@ -224,6 +238,16 @@ extension LoginViewController {
     @objc func checkBoxToggle(button: UIButton){
         checkBoxButton.isSelected = !checkBoxButton.isSelected
     }
+    
+    @objc func visitorLoginLabelTapped(recognizer: UITapGestureRecognizer) {
+        NetworkManager.shared.fetchVistorLoginModel(completionHandler: { result in
+            print(result.data.name ?? "")
+            print(result.code)
+            print(result.data.isBuy)
+            visitorUUID = result.data.studentID
+        })
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension LoginViewController: UITextViewDelegate {
@@ -232,7 +256,3 @@ extension LoginViewController: UITextViewDelegate {
         return false
     }
 }
-
-//extension UIButton: UIControl {
-//
-//}

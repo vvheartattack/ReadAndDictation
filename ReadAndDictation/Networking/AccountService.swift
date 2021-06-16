@@ -7,9 +7,11 @@
 
 import Foundation
 import Moya
+import AppTrackingTransparency
+import AdSupport
 
 enum AccountService {
-    case visitorLogin(uuid: String, user_type: String)
+    case visitorLogin
 }
 
 extension AccountService: TargetType {
@@ -21,7 +23,7 @@ extension AccountService: TargetType {
     // 请求路径
     var path: String {
         switch self {
-        case .visitorLogin(uuid: _, user_type: _):
+        case .visitorLogin:
             return "dictation/visitor_login"
         }
         
@@ -30,22 +32,19 @@ extension AccountService: TargetType {
     // 请求方法
     var method: Moya.Method {
         switch self {
-        case .visitorLogin(uuid: _, user_type: _):
+        case .visitorLogin:
             return .post
         }
     }
     
     var sampleData: Data {
-        switch self {
-        case let .visitorLogin(uuid, user_type):
-            return "{\"uuid\": \(uuid), \"user_type\": \(user_type)}".data(using: .utf8)!
-        }
+        return Data()
     }
     
     var task: Task {
         switch self {
-        case let .visitorLogin(uuid, user_type):
-            return .requestParameters(parameters: ["uuid": uuid, "user_type": user_type], encoding: JSONEncoding.default)
+        case .visitorLogin:
+            return .requestParameters(parameters: ["uuid": ASIdentifierManager.shared().advertisingIdentifier.uuidString], encoding: JSONEncoding.default)
         }
     }
     

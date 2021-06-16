@@ -38,11 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                break
 //            }
 //        }
-        NetworkManager.shared.fetchVistorLoginModel(completionHandler: { result in
-            print(result.data.name ?? "")
-            print(result.code)
-            print(result.data.isBuy)
-        })
         return true
     }
 
