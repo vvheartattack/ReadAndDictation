@@ -21,7 +21,6 @@
 		0992CAF3266618CF008F2AFF /* EntranceForSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF2266618CF008F2AFF /* EntranceForSchoolViewController.swift */; };
 		0992CAF526676A7C008F2AFF /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF426676A7C008F2AFF /* HomeTableViewCell.swift */; };
 		0992CAF8266787B4008F2AFF /* MineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */; };
-		0992CAFA266A1529008F2AFF /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAF9266A1529008F2AFF /* EmptyViewController.swift */; };
 		0992CAFF26706ABE008F2AFF /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CAFE26706ABE008F2AFF /* AccountService.swift */; };
 		0992CB022672FA7A008F2AFF /* VisitorLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CB012672FA7A008F2AFF /* VisitorLoginModel.swift */; };
 		0992CB04267341A8008F2AFF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0992CB03267341A8008F2AFF /* NetworkManager.swift */; };
@@ -48,7 +47,6 @@
 		0992CAF2266618CF008F2AFF /* EntranceForSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceForSchoolViewController.swift; sourceTree = "<group>"; };
 		0992CAF426676A7C008F2AFF /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTableViewCell.swift; sourceTree = "<group>"; };
-		0992CAF9266A1529008F2AFF /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		0992CAFE26706ABE008F2AFF /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		0992CB012672FA7A008F2AFF /* VisitorLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorLoginModel.swift; sourceTree = "<group>"; };
 		0992CB03267341A8008F2AFF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -93,10 +91,10 @@
 		0992CACC265C9FC9008F2AFF /* ReadAndDictation */ = {
 			isa = PBXGroup;
 			children = (
+				0992CB0F267C9E16008F2AFF /* UI */,
 				0992CB002672FA34008F2AFF /* Model */,
 				0992CAFB266DF65C008F2AFF /* Networking */,
 				0992CAEA265F9DE2008F2AFF /* Helper */,
-				0992CAE1265CA27B008F2AFF /* TabBarController */,
 				0992CACD265C9FC9008F2AFF /* AppDelegate.swift */,
 				0992CACF265C9FC9008F2AFF /* SceneDelegate.swift */,
 				0992CAD1265C9FC9008F2AFF /* ViewController.swift */,
@@ -110,15 +108,7 @@
 		0992CAE1265CA27B008F2AFF /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				0992CAEF26661851008F2AFF /* PageViewController */,
 				0992CAE2265CA2A8008F2AFF /* MainTabBarController.swift */,
-				0992CAE4265CA37F008F2AFF /* HomeViewController.swift */,
-				0992CAE6265CA393008F2AFF /* MineViewController.swift */,
-				0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */,
-				0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */,
-				0992CAF9266A1529008F2AFF /* EmptyViewController.swift */,
-				0992CB05267366EF008F2AFF /* LoginViewController.swift */,
-				0992CB07267C70A9008F2AFF /* BookContentViewController.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -157,6 +147,61 @@
 				0992CB012672FA7A008F2AFF /* VisitorLoginModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0992CB0B267C9D35008F2AFF /* MineViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CAF7266787B4008F2AFF /* MineTableViewCell.swift */,
+				0992CAE6265CA393008F2AFF /* MineViewController.swift */,
+			);
+			path = MineViewController;
+			sourceTree = "<group>";
+		};
+		0992CB0C267C9DA0008F2AFF /* ExtensionToolViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CAE8265CA3AA008F2AFF /* ExtensionToolViewController.swift */,
+			);
+			path = ExtensionToolViewController;
+			sourceTree = "<group>";
+		};
+		0992CB0D267C9DBE008F2AFF /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CAE4265CA37F008F2AFF /* HomeViewController.swift */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		0992CB0E267C9E02008F2AFF /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CB05267366EF008F2AFF /* LoginViewController.swift */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		0992CB0F267C9E16008F2AFF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0992CB10267C9E5B008F2AFF /* BookContentViewController */,
+				0992CAE1265CA27B008F2AFF /* TabBarController */,
+				0992CAEF26661851008F2AFF /* PageViewController */,
+				0992CB0B267C9D35008F2AFF /* MineViewController */,
+				0992CB0C267C9DA0008F2AFF /* ExtensionToolViewController */,
+				0992CB0D267C9DBE008F2AFF /* HomeViewController */,
+				0992CB0E267C9E02008F2AFF /* LoginViewController */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		0992CB10267C9E5B008F2AFF /* BookContentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0992CB07267C70A9008F2AFF /* BookContentViewController.swift */,
+			);
+			path = BookContentViewController;
 			sourceTree = "<group>";
 		};
 		1F9A630DE26345814BD5E83C /* Frameworks */ = {
@@ -305,7 +350,6 @@
 				0992CAE3265CA2A8008F2AFF /* MainTabBarController.swift in Sources */,
 				0992CB06267366EF008F2AFF /* LoginViewController.swift in Sources */,
 				0992CAFF26706ABE008F2AFF /* AccountService.swift in Sources */,
-				0992CAFA266A1529008F2AFF /* EmptyViewController.swift in Sources */,
 				0992CAD0265C9FC9008F2AFF /* SceneDelegate.swift in Sources */,
 				0992CB0A267C9605008F2AFF /* ExtensionOfNotification.swift in Sources */,
 			);
