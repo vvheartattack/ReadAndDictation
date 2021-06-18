@@ -250,7 +250,7 @@ extension LoginViewController {
             let visitorName = result.data.name
             UserDefaults.standard.setValue(visitorName, forKey: "visitorName")
             NotificationCenter.default.post(name: Notification.visitorNameNotification, object: nil)
-            
+//            print(UserDefaults.standard.string(forKey: "visitorName"))
             
         })
         self.dismiss(animated: true, completion: nil)
