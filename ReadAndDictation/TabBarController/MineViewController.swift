@@ -36,27 +36,26 @@ class MineViewController: UIViewController {
     
     @objc func visitorNameSaved(_ notification: Notification) {
         if UserDefaults.standard.string(forKey: "visitorName") != nil {
-            if UserDefaults.standard.string(forKey: "visitorName") != nil {
-                userNameLabel.text = UserDefaults.standard.string(forKey: "visitorName")
-                userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
-            }
+            userNameLabel.text = UserDefaults.standard.string(forKey: "visitorName")
+            userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
         }
     }
     
     @objc func visitorUUIDSaved(_ notification: Notification) {
         if UserDefaults.standard.string(forKey: "visitorUUID") != nil {
-            if UserDefaults.standard.string(forKey: "visitorUUID") != nil {
-                userNumberLabel.text = "学号：" + UserDefaults.standard.string(forKey: "visitorUUID")!
-            }
+            userNumberLabel.text = "学号：" + UserDefaults.standard.string(forKey: "visitorUUID")!
         }
     }
     
     lazy var userNameLabel: UILabel = {
         let userNameLabel = UILabel()
-        userNameLabel.text = "登录/注册"
         userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         userNameLabel.isUserInteractionEnabled = true
-        if userNameLabel.text == "登录/注册" {
+        if UserDefaults.standard.string(forKey: "visitorName") != nil {
+            userNameLabel.text = UserDefaults.standard.string(forKey: "visitorName")
+            userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
+        } else {
+            userNameLabel.text = "登录/注册"
             userNameLabel.addGestureRecognizer(userNameLabelRecognizer)
         }
         return userNameLabel
@@ -64,7 +63,11 @@ class MineViewController: UIViewController {
     
     lazy var userNumberLabel: UILabel = {
         let userNumberLabel = UILabel()
-        userNumberLabel.text = "学号"
+        if UserDefaults.standard.string(forKey: "visitorUUID") != nil {
+            userNumberLabel.text = "学号：" + UserDefaults.standard.string(forKey: "visitorUUID")!
+        } else {
+            userNumberLabel.text = "学号"
+        }
         userNumberLabel.textColor = #colorLiteral(red: 0.5764705882, green: 0.5921568627, blue: 0.631372549, alpha: 1)
         userNumberLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         return userNumberLabel
