@@ -53,7 +53,7 @@ class MineViewController: UIViewController {
         userNameLabel.isUserInteractionEnabled = true
         if UserDefaults.standard.string(forKey: "visitorName") != nil {
             userNameLabel.text = UserDefaults.standard.string(forKey: "visitorName")
-            userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
+//            userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
         } else {
             userNameLabel.text = "登录/注册"
             userNameLabel.addGestureRecognizer(userNameLabelRecognizer)
