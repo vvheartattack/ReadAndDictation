@@ -7,7 +7,7 @@
 
 import UIKit
 
-var visitorUUID: String = ""
+//var visitorLoginCase: VisitorLoginModel? = nil
 
 class LoginViewController: UIViewController {
 //    lazy var visitorUUID: String = {
@@ -244,7 +244,14 @@ extension LoginViewController {
             print(result.data.name ?? "")
             print(result.code)
             print(result.data.isBuy)
-            visitorUUID = result.data.studentID
+            let visitorUUID = result.data.studentID
+            UserDefaults.standard.setValue(visitorUUID, forKey: "visitorUUID")
+            NotificationCenter.default.post(name: Notification.visitorUUIDNotification, object: nil)
+            let visitorName = result.data.name
+            UserDefaults.standard.setValue(visitorName, forKey: "visitorName")
+            NotificationCenter.default.post(name: Notification.visitorNameNotification, object: nil)
+            
+            
         })
         self.dismiss(animated: true, completion: nil)
     }

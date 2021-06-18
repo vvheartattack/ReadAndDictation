@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct VisitorLoginModel: Decodable {
+struct VisitorLoginModel: Codable {
     var code: Int
     var data: VisitorModel
     var message: String?
     var state: Int?
 }
 
-struct VisitorModel: Decodable {
+struct VisitorModel: Codable {
     var studentID: String
     var name: String?
     var expirationTime: String?
@@ -25,6 +25,7 @@ struct VisitorModel: Decodable {
     var leftDays: Int
     var token: String?
     
+    // 自定义键值名
     private enum CodingKeys: String, CodingKey {
         case studentID = "student_id"
         case name

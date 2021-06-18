@@ -34,6 +34,42 @@ class MineViewController: UIViewController {
         self.present(loginViewController, animated: true, completion: nil)
     }
     
+    @objc func visitorNameSaved(_ notification: Notification) {
+        if UserDefaults.standard.string(forKey: "visitorName") != nil {
+            if UserDefaults.standard.string(forKey: "visitorName") != nil {
+                userNameLabel.text = UserDefaults.standard.string(forKey: "visitorName")
+                userNameLabel.removeGestureRecognizer(userNameLabelRecognizer)
+            }
+        }
+    }
+    
+    @objc func visitorUUIDSaved(_ notification: Notification) {
+        if UserDefaults.standard.string(forKey: "visitorUUID") != nil {
+            if UserDefaults.standard.string(forKey: "visitorUUID") != nil {
+                userNumberLabel.text = "学号：" + UserDefaults.standard.string(forKey: "visitorUUID")!
+            }
+        }
+    }
+    
+    lazy var userNameLabel: UILabel = {
+        let userNameLabel = UILabel()
+        userNameLabel.text = "登录/注册"
+        userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        userNameLabel.isUserInteractionEnabled = true
+        if userNameLabel.text == "登录/注册" {
+            userNameLabel.addGestureRecognizer(userNameLabelRecognizer)
+        }
+        return userNameLabel
+    }()
+    
+    lazy var userNumberLabel: UILabel = {
+        let userNumberLabel = UILabel()
+        userNumberLabel.text = "学号"
+        userNumberLabel.textColor = #colorLiteral(red: 0.5764705882, green: 0.5921568627, blue: 0.631372549, alpha: 1)
+        userNumberLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        return userNumberLabel
+    }()
+    
     func setUpContentOfBasciView() {
         // Set up content of basicView
     
@@ -45,27 +81,17 @@ class MineViewController: UIViewController {
             make.leading.equalToSuperview().offset(16)
         }
         
-        let userNameLabel = UILabel()
-        userNameLabel.text = "登录/注册"
-        userNameLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        userNameLabel.isUserInteractionEnabled = true
-        userNameLabel.addGestureRecognizer(userNameLabelRecognizer)
-        if visitorUUID != "" {
-            userNameLabel.text = visitorUUID
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(visitorUUIDSaved(_:)), name: Notification.visitorUUIDNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(visitorNameSaved(_:)), name: Notification.visitorNameNotification, object: nil)
+        
         basicView.addSubview(userNameLabel)
         userNameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(avatarImageView.snp.top)
             make.leading.equalTo(avatarImageView.snp.trailing).offset(12)
         }
 
-        let userNumberLabel = UILabel()
-        userNumberLabel.text = "学号"
-        userNumberLabel.textColor = #colorLiteral(red: 0.5764705882, green: 0.5921568627, blue: 0.631372549, alpha: 1)
-        userNumberLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        if visitorUUID != "" {
-            userNumberLabel.text = "学号：" + visitorUUID
-        }
+        
         basicView.addSubview(userNumberLabel)
         userNumberLabel.snp.makeConstraints {(make) in
             make.leading.equalTo(userNameLabel.snp.leading)
