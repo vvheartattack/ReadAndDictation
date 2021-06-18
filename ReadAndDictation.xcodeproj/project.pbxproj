@@ -169,6 +169,7 @@
 		0992CB0D267C9DBE008F2AFF /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0992CAEF26661851008F2AFF /* PageViewController */,
 				0992CAE4265CA37F008F2AFF /* HomeViewController.swift */,
 			);
 			path = HomeViewController;
@@ -187,7 +188,6 @@
 			children = (
 				0992CB10267C9E5B008F2AFF /* BookContentViewController */,
 				0992CAE1265CA27B008F2AFF /* TabBarController */,
-				0992CAEF26661851008F2AFF /* PageViewController */,
 				0992CB0B267C9D35008F2AFF /* MineViewController */,
 				0992CB0C267C9DA0008F2AFF /* ExtensionToolViewController */,
 				0992CB0D267C9DBE008F2AFF /* HomeViewController */,

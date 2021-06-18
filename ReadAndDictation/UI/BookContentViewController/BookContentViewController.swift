@@ -42,6 +42,8 @@ class BookContentViewController: UIViewController {
     lazy var customizeUploadLabel: UILabel = {
         let customizeUploadLabel = UILabel()
         let attributedText = NSMutableAttributedString(string: "内容不全？试试自定义上传默写内容")
+        customizeUploadLabel.font = UIFont.systemFont(ofSize: 15)
+        customizeUploadLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         attributedText.addAttributes([.foregroundColor: #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)], range: NSRange(location: 7, length: 5))
         customizeUploadLabel.attributedText = attributedText
         return customizeUploadLabel
@@ -56,16 +58,26 @@ class BookContentViewController: UIViewController {
     func setUpLayout() {
         customizeUploadView.addSubview(customizeUploadLabel)
         customizeUploadLabel.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(16)
-            
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
             
         }
         customizeUploadView.addSubview(customizeUploadImageView)
+        customizeUploadImageView.snp.makeConstraints{ (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-16)
+        }
         self.view.addSubview(customizeUploadView)
+        customizeUploadView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().inset(16)
+            make.bottom.equalTo(customizeUploadLabel.snp.bottom).offset(16)
+        }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigationBar()
+        setUpLayout()
 
         // Do any additional setup after loading the view.
     }
