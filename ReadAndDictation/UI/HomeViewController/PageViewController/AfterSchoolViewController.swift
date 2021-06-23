@@ -39,7 +39,11 @@ class AfterSchoolViewController: UIViewController {
     }
 }
 extension AfterSchoolViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bookContentVC = BookContentViewController()
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(bookContentVC, animated: true)
+    }
 }
 
 extension AfterSchoolViewController: UITableViewDataSource {

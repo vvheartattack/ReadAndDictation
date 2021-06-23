@@ -39,7 +39,11 @@ class EntranceForSchoolViewController: UIViewController {
     }
 }
 extension EntranceForSchoolViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let bookContentVC = BookContentViewController()
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(bookContentVC, animated: false)
+    }
 }
 
 extension EntranceForSchoolViewController: UITableViewDataSource {
